@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
-const Pagination = ({ setPageNumber, pageSize, setPageSize }) => {
+const Pagination = ({ pageNumber, setPageNumber, pageSize, setPageSize }) => {
   //const handlePageChange = (event) => {
   //    setPageNumber(Number(event.target.value));
   //};
 
   let [num, setNum] = useState(1);
-  let [cur, setCur] = useState(1);
+//  let [cur, setCur] = useState(1);
 
   const pages = [
     { page: num },
@@ -22,10 +22,15 @@ const Pagination = ({ setPageNumber, pageSize, setPageSize }) => {
 
   function Next() {
     setNum(++num);
+    setPageNumber(pageNumber + 1);
   }
   function Back() {
-    num > 1 && setNum(--num);
+   // num > 1 && setNum(--num);
+   if (num > 1) {
+    setNum(num - 1);
+    setPageNumber(pageNumber - 1);
   }
+}
 
   return (
     <div>
@@ -36,7 +41,7 @@ const Pagination = ({ setPageNumber, pageSize, setPageSize }) => {
         >
           <BiChevronLeft className="m-auto" />
         </button>
-        {pages.map((pg, i) => {
+        {/* {pages.map((pg, i) => {
           return (
             <button
               onClick={() => setCur(pg.page)}
@@ -46,10 +51,23 @@ const Pagination = ({ setPageNumber, pageSize, setPageSize }) => {
                 "bg-rose-500 dark:bg shadow-md shadow-rose-500/50 hover:bg-rose-500/100 text-white"
               }`}
             >
-              {pg.page}
-            </button>
-          );
-        })}
+              {pg.page} */}
+        {pages.map((pg, i) => (
+          <button
+            onClick={() => {
+              setNum(pg.page);
+              setPageNumber(pg.page);
+            }}
+            key={i}
+            className={`h-10 w-10 ml-2 font-semibold rounded-xl dark:text-white hover:bg-gray-300/50 ${pageNumber === pg.page &&
+              "bg-rose-500 dark:bg shadow-md shadow-rose-500/50 hover:bg-rose-500/100 text-white"
+              }`}
+          >
+            {pg.page}
+          </button>
+          /* );
+        })} */
+        ))}
         <button
           onClick={Next}
           className="h-10 w-10 ml-2 rounded-xl hover:bg-gray-300/50 dark:text-white"
@@ -67,6 +85,15 @@ const Pagination = ({ setPageNumber, pageSize, setPageSize }) => {
               className="w-[70px] ml-2 rounded-lg font-normal text-center dark:bg-[#1a2330] dark:text-white"
             />
           </label>
+  {/*         <label>
+            Page Size:
+            <input
+              type="number"
+              value={pageSize}
+              onChange={handlePageSizeChange}
+              min="1"
+            />
+          </label> */}
         </div>
       </div>
     </div>
