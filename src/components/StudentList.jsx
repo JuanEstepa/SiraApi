@@ -10,6 +10,17 @@ const StudentList = () => {
   const [sortBy, setSortBy] = useState("nombre");
   const [sortDirection, setSortDirection] = useState("desc");
 
+  const [expandedRows, setExpandedRows] = useState([]);
+
+  const toggleRow = (studentId) => {
+    const isExpanded = expandedRows.includes(studentId);
+    if (isExpanded) {
+      setExpandedRows(expandedRows.filter((id) => id !== studentId));
+    } else {
+      setExpandedRows([...expandedRows, studentId]);
+    }
+  };
+
   useEffect(() => {
     fetchStudents();
   }, [pageNumber, pageSize, sortBy, sortDirection]);
@@ -36,12 +47,11 @@ const StudentList = () => {
       <div className="flex flex-col items-center">
         <SortSelect setSortBy={setSortBy} setSortDirection={setSortDirection} />
         <div className="overflow-x-auto m-4 w-auto rounded-xl">
-          <table className="table-auto w-full ">
+          <table className="table-auto w-full">
             <thead className="border-b">
               <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                 <th className="text-center p-4 font-medium">Id</th>
-                <th className="text-center p-4 font-medium">Name</th>
-                <th className="text-center p-4 font-medium">Last name</th>
+                <th className="text-center p-4 font-medium">Full name</th>
                 <th className="text-center p-4 font-medium">Document</th>
                 <th className="text-center p-4 font-medium">Materias</th>
               </tr>
@@ -49,13 +59,32 @@ const StudentList = () => {
             <tbody>
               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
                 <td className="p-4">13549</td>
-                <td className="p-4">Jaime</td>
-                <td className="p-4">Galvis</td>
+                <td className="p-4">Jaime Enrique Galvis</td>
                 <td className="p-4">100164621</td>
                 <td className="p-4">
-                  <button className="px-2 py-1 text-white bg-rose-500 rounded-lg shadow-md shadow-rose-500">
+                  <button className="px-2 py-1 text-white bg-rose-500 rounded-lg shadow-md shadow-rose-500 hover:">
                     Ver materias
                   </button>
+                </td>
+              </tr>
+              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
+                <td className="p-4">
+                  <table className="table-auto w-full">
+                    <thead className="border-b">
+                      <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
+                        <td className="p-4">Code</td>
+                        <td className="p-4">Name</td>
+                        <td className="p-4">Cupos</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>123</th>
+                        <th>Programacion</th>
+                        <th>30</th>
+                      </tr>
+                    </tbody>
+                  </table>
                 </td>
               </tr>
             </tbody>

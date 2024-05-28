@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Disclosure } from "@headlessui/react";
+import { Link } from "react-router-dom";
 import {
   Bars3Icon,
   XMarkIcon,
@@ -8,9 +9,9 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Estudiantes", href: "#", current: true },
-  { name: "Materias", href: "#", current: false },
-  { name: "Inscripciones", href: "#", current: false },
+  { name: "Students", to: "/", current: true },
+  { name: "Subjects", to: "/Subjects", current: false },
+  { name: "Inscriptions", to: "/Inscriptions", current: false },
 ];
 
 function classNames(...classes) {
@@ -60,15 +61,15 @@ export default function NavBar() {
                   <img
                     className="h-8 w-auto"
                     src="https://cdn-icons-png.flaticon.com/512/214/214337.png"
-                    alt="Your Company"
+                    alt="Sirapp"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.to}
                         className={classNames(
                           item.current
                             ? "dark:bg-gray-900 bg-gray-300 dark:text-white text-black "
@@ -78,7 +79,7 @@ export default function NavBar() {
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -98,9 +99,9 @@ export default function NavBar() {
 
                   <div className="w-[20px] h-[20px] rounded-full bg-white dark:translate-x-[24px] transition-all flex items-center justify-center">
                     {dark ? (
-                      <MoonIcon class="h-4 w-4 text-gray-800" />
+                      <MoonIcon className="h-4 w-4 text-gray-800" />
                     ) : (
-                      <SunIcon class="h-6 w-6 text-gray-800" />
+                      <SunIcon className="h-6 w-6 text-gray-800" />
                     )}
                   </div>
                 </label>
@@ -114,7 +115,6 @@ export default function NavBar() {
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  href={item.href}
                   className={classNames(
                     item.current
                       ? "dark:bg-gray-900 bg-gray-300 dark:text-white text-black"
@@ -123,7 +123,7 @@ export default function NavBar() {
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
-                  {item.name}
+                  <Link to={item.to}>{item.name}</Link>
                 </Disclosure.Button>
               ))}
             </div>
