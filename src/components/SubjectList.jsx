@@ -41,7 +41,6 @@ const SubjectList = () => {
               <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                 <th className="text-center p-4 font-medium">Id</th>
                 <th className="text-center p-4 font-medium">Name</th>
-                <th className="text-center p-4 font-medium">Last name</th>
                 <th className="text-center p-4 font-medium">Document</th>
                 <th className="text-center p-4 font-medium">Materias</th>
               </tr>
@@ -72,24 +71,3 @@ const SubjectList = () => {
 };
 
 export default SubjectList;
-
-/* <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Last Name</th>
-              <th>Document Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((subject) => (
-              <tr key={subject.student_id}>
-                <td>{subject.student_id}</td>
-                <td>{subject.nombre}</td>
-                <td>{subject.apellido}</td>
-                <td>{subject.numero_identificacion}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */

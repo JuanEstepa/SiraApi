@@ -15,8 +15,8 @@ const SortSelect = ({ setSortBy, setSortDirection }) => {
           className=" ml-2 rounded-lg font-normal text-center dark:bg-[#1a2330] dark:text-white"
           onChange={handleSortByChange}
         >
+          <option value="student_id">Student Id</option>
           <option value="nombre">Name</option>
-          <option value="apellido">Last Name</option>
           <option value="numero_identificacion">Document Number</option>
         </select>
       </label>
