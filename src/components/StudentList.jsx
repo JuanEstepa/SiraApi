@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { getStudents } from "../services/api";
+import { getStudents, getStudentSubjects } from '../services/api';  
 import Pagination from "./Pagination";
 import SortSelect from "./SortSelect";
+import SubjectModal from "./SubjectModal";
 
 const StudentList = () => {
   const [students, setStudents] = useState([]);
@@ -9,27 +10,10 @@ const StudentList = () => {
   const [pageSize, setPageSize] = useState(10);
   const [sortBy, setSortBy] = useState("student_id");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [subjects, setSubjects] = useState([]);
+  const [showSubjects, setShowSubjects] = useState(false);
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
 
- /*  useEffect(() => {
-    fetchStudents();
-  }, [pageNumber, pageSize, sortBy, sortDirection]);
- */
-
-/*   const fetchStudents = async () => {
-    try {
-      const response = await getStudents(
-        pageNumber,
-        pageSize,
-        sortBy,
-        sortDirection
-      );
-      setStudents(response.data);
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }
-  }; 
-
-  return (*/
   useEffect(() => {
     const fetchStudents = async () => {
       try {
@@ -41,17 +25,31 @@ const StudentList = () => {
     };
 
     fetchStudents();
-  }, [pageNumber, pageSize, sortBy, sortDirection]); // Depend on state variables that trigger re-fetching
+  }, [pageNumber, pageSize, sortBy, sortDirection]);
+
+  const handleViewSubjects = async (studentId) => {
+    if (selectedStudentId === studentId) {
+      setSelectedStudentId(null);
+      setSubjects([]);
+    } else {
+      try {
+        const response = await getStudentSubjects(studentId);
+        console.log("Received subjects:", response.data);
+        setSubjects(response.data);
+        setSelectedStudentId(studentId); // Store selected student ID
+      } catch (error) {
+        console.error('Error fetching subjects:', error);
+      }
+    }
+  };
 
   return (
     <div>
-      <h1 className="p-6 font-bold dark:text-white text-3xl text-center uppercase">
-        Student List
-      </h1>
+      <h1 className="p-6 font-bold dark:text-white text-3xl text-center uppercase">Student List</h1>
       <div className="flex flex-col items-center">
         <SortSelect setSortBy={setSortBy} setSortDirection={setSortDirection} />
         <div className="overflow-x-auto m-4 w-auto rounded-xl">
-          <table className="table-auto w-full ">
+          <table className="table-auto w-full">
             <thead className="border-b">
               <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                 <th className="text-center p-4 font-medium">Id</th>
@@ -61,68 +59,53 @@ const StudentList = () => {
               </tr>
             </thead>
             <tbody>
-{/*               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white" key={students.student_id}>
-                <td>{students.student_id}</td>
-                <td>{students.nombre}</td>
-                <td>{students.apellido}</td>
-                <td>{students.numero_identificacion}</td>
-                <td className="p-4">13549</td>
-                <td className="p-4">Jaime</td>
-                <td className="p-4">Galvis</td>
-                <td className="p-4">100164621</td> 
-
-                <td className="p-4">
-                  <button className="px-2 py-1 text-white bg-rose-500 rounded-lg shadow-md shadow-rose-500">
-                    Ver materias
-                  </button>
-                </td>
-              </tr>
-              */}
-                {students.map((student) => (
+              {students.map((student) => (
+                <>
                   <tr key={student.student_id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
                     <td className="text-center p-4">{student.student_id}</td>
                     <td className="text-center p-4">{student.nombre}</td>
                     <td className="text-center p-4">{student.numero_identificacion}</td>
                     <td className="text-center p-4">
-                      <button className="px-2 py-1 text-white bg-rose-500 rounded-lg shadow-md shadow-rose-500">
+                      <button className="px-2 py-1 text-white bg-rose-500 rounded-lg shadow-md shadow-rose-500" onClick={() => handleViewSubjects(student.student_id)}>
                         Ver materias
                       </button>
                     </td>
                   </tr>
-                ))}
-              </tbody>
+                  {selectedStudentId === student.student_id && (
+                    <tr>
+                      <td colSpan="4">
+                        <table className="w-full">
+                          <thead>
+                            <tr className="bg-gray-200">
+                              <th>Subject ID</th>
+                              <th>Nombre</th>
+                              <th>Aula</th>
+                              <th>Créditos</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {subjects.map(subject => (
+                              <tr key={subject.subject_id}>
+                                <td>{subject.subject_id}</td>
+                                <td>{subject.nombre}</td>
+                                <td>{subject.aula}</td>
+                                <td>{subject.creditos}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  )}
+                </>
+              ))}
+            </tbody>
           </table>
         </div>
-        <Pagination
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-        />
+        <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} pageSize={pageSize} setPageSize={setPageSize} />
       </div>
     </div>
   );
 };
 
 export default StudentList;
-
-/* <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Last Name</th>
-              <th>Document Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
-              <tr key={student.student_id}>
-                <td>{student.student_id}</td>
-                <td>{student.nombre}</td>
-                <td>{student.apellido}</td>
-                <td>{student.numero_identificacion}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */

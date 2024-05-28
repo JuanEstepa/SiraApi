@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://2a568cd06261529e7824cbc339bcb812.loophole.site";
+const API_URL = "https://8901d8c65b51e937291429eff318f361.loophole.site";
 
 export const getStudents = (pageNumber, pageSize, sortBy, sortDirection) => {
   return axios.get(`${API_URL}/students/`, {
@@ -11,5 +11,9 @@ export const getStudents = (pageNumber, pageSize, sortBy, sortDirection) => {
       "SortParameter.SortDirection": sortDirection,
     },
   });
+};
+
+export const getStudentSubjects = (studentId) => {
+  return axios.get(`${API_URL}/students/${studentId}/subjects/`);
 };
 
