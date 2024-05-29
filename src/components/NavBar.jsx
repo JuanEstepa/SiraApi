@@ -6,11 +6,12 @@ import {
   MoonIcon,
   SunIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Estudiantes", href: "#", current: true },
-  { name: "Materias", href: "#", current: false },
-  { name: "Inscripciones", href: "#", current: false },
+  { name: "Estudiantes", href: "/", current: true },
+  { name: "Materias", href: "/Subjects", current: false },
+  { name: "Inscripciones", href: "/Inscriptions", current: false },
 ];
 
 function classNames(...classes) {
@@ -66,9 +67,9 @@ export default function NavBar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current
                             ? "dark:bg-gray-900 bg-gray-300 dark:text-white text-black "
@@ -78,7 +79,7 @@ export default function NavBar() {
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -114,7 +115,6 @@ export default function NavBar() {
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  href={item.href}
                   className={classNames(
                     item.current
                       ? "dark:bg-gray-900 bg-gray-300 dark:text-white text-black"
@@ -123,7 +123,7 @@ export default function NavBar() {
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
-                  {item.name}
+                  <Link to={item.href}>{item.name}</Link>
                 </Disclosure.Button>
               ))}
             </div>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const SubjectModal = ({ subjects, onClose }) => {
   return (
     <div className="modal-background">
