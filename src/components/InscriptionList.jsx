@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 
 import Pagination from "./Pagination";
-import SortSelect from "./SortSelect";
 
 const InscriptionList = () => {
   const [inscriptions, setInscriptions] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortBy, setSortBy] = useState("nombre");
-  const [sortDirection, setSortDirection] = useState("desc");
 
   useEffect(() => {
     fetchInscriptions();
@@ -16,12 +13,7 @@ const InscriptionList = () => {
 
   const fetchInscriptions = async () => {
     try {
-      const response = await getInscriptions(
-        pageNumber,
-        pageSize,
-        sortBy,
-        sortDirection
-      );
+      const response = await getInscriptions(pageNumber, pageSize);
       setInscriptions(response.data);
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -40,18 +32,20 @@ const InscriptionList = () => {
             <thead className="border-b">
               <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                 <th className="text-center p-4 font-medium">Id</th>
-                <th className="text-center p-4 font-medium">Name</th>
-                <th className="text-center p-4 font-medium">Last name</th>
-                <th className="text-center p-4 font-medium">Document</th>
+                <th className="text-center p-4 font-medium">Estudiante</th>
+                <th className="text-center p-4 font-medium">Materia</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
-                <td className="p-4">13549</td>
-                <td className="p-4">Jaime</td>
-                <td className="p-4">Galvis</td>
-                <td className="p-4">100164621</td>
-              </tr>
+              {inscriptions.map((inscription) => (
+                <>
+                  <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
+                    <td className="p-4">{inscription.id}</td>
+                    <td className="p-4">{inscription.id_Student}</td>
+                    <td className="p-4">{inscription.id_Subject}</td>
+                  </tr>
+                </>
+              ))}
             </tbody>
           </table>
         </div>
