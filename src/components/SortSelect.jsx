@@ -1,4 +1,4 @@
-const SortSelect = ({ setSortBy, setSortDirection }) => {
+const SortSelect = ({ setSortBy, setSortDirection, list }) => {
   const handleSortByChange = (event) => {
     setSortBy(event.target.value);
   };
@@ -15,9 +15,19 @@ const SortSelect = ({ setSortBy, setSortDirection }) => {
           className=" ml-2 rounded-lg font-normal text-center dark:bg-[#1a2330] dark:text-white"
           onChange={handleSortByChange}
         >
-          <option value="student_id">Student Id</option>
-          <option value="nombre">Name</option>
-          <option value="numero_identificacion">Document Number</option>
+          {list === "Students" ? (
+            <>
+              <option value="student_id">Student Id</option>
+              <option value="nombre">Name</option>
+              <option value="numero_identificacion">Document Number</option>
+            </>
+          ) : (
+            <>
+              <option value="subject_id">Subject id</option>
+              <option value="nombre">Name</option>
+              <option value="aula">Aula</option>
+            </>
+          )}
         </select>
       </label>
       <label className="ml-2 pl-2 border-l font-medium dark:text-white">

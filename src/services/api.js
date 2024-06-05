@@ -19,7 +19,7 @@ export const getStudentSubjects = (studentId) => {
 };
 
 export const getSubjects = (pageNumber, pageSize, sortBy, sortDirection) => {
-  return axios.get(`${API_URL}/subjectsw/`, {
+  return axios.get(`${API_URL}/subjects/`, {
     params: {
       PageSize: pageSize,
       PageNumber: pageNumber,
@@ -30,21 +30,9 @@ export const getSubjects = (pageNumber, pageSize, sortBy, sortDirection) => {
 };
 
 export const getSubjectStudents = (studentId) => {
-  return axios.get(`${API_URL}/students/${studentId}/subjects/`);
+  return axios.get(`${API_URL}/subjects/${studentId}/students/`);
 };
 
-export const getInscriptions = (
-  pageNumber,
-  pageSize,
-  sortBy,
-  sortDirection
-) => {
-  return axios.get(`${API_URL}/inscriptions/`, {
-    params: {
-      PageSize: pageSize,
-      PageNumber: pageNumber,
-      "SortParameter.SortBy": sortBy,
-      "SortParameter.SortDirection": sortDirection,
-    },
-  });
+export const getInscriptions = () => {
+  return axios.get(`${API_URL}/registrations/`, {});
 };

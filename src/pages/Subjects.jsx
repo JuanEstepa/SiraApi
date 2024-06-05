@@ -4,7 +4,7 @@ import SubjectList from "../components/SubjectList";
 const Subjects = () => {
   return (
     <div className="w-full h-screen">
-      <NavBar />
+      <NavBar page="Materias" />
       <SubjectList />
     </div>
   );

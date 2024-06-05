@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { getStudents, getStudentSubjects } from "../services/api";
 import Pagination from "./Pagination";
 import SortSelect from "./SortSelect";
-import SubjectModal from "./SubjectModal";
 
 const StudentList = () => {
   const [students, setStudents] = useState([]);
@@ -11,7 +11,6 @@ const StudentList = () => {
   const [sortBy, setSortBy] = useState("student_id");
   const [sortDirection, setSortDirection] = useState("asc");
   const [subjects, setSubjects] = useState([]);
-  const [showSubjects, setShowSubjects] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState(null);
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const StudentList = () => {
         console.error("Error fetching students:", error);
       }
     };
-
     fetchStudents();
   }, [pageNumber, pageSize, sortBy, sortDirection]);
 
@@ -54,7 +52,11 @@ const StudentList = () => {
         Student List
       </h1>
       <div className="flex flex-col items-center">
-        <SortSelect setSortBy={setSortBy} setSortDirection={setSortDirection} />
+        <SortSelect
+          setSortBy={setSortBy}
+          setSortDirection={setSortDirection}
+          list="Students"
+        />
         <div className="overflow-x-auto m-4 w-auto rounded-xl">
           <table className="table-auto w-full">
             <thead className="border-b">
@@ -67,7 +69,7 @@ const StudentList = () => {
             </thead>
             <tbody>
               {students.map((student) => (
-                <>
+                <React.Fragment key={student.student_id}>
                   <tr
                     key={student.student_id}
                     className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white"
@@ -115,7 +117,7 @@ const StudentList = () => {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>

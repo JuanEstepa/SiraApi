@@ -4,7 +4,7 @@ import StudentList from "../components/StudentList";
 const Students = () => {
   return (
     <div className="w-full h-screen">
-      <NavBar />
+      <NavBar page="Estudiantes" />
       <StudentList />
     </div>
   );

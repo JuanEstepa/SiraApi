@@ -1,24 +1,20 @@
-import { useState, useEffect } from "react";
-
-import Pagination from "./Pagination";
+import React, { useState, useEffect } from "react";
+import { getInscriptions } from "../services/api";
 
 const InscriptionList = () => {
   const [inscriptions, setInscriptions] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
+    const fetchInscriptions = async () => {
+      try {
+        const response = await getInscriptions();
+        setInscriptions(response.data);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
     fetchInscriptions();
-  }, [pageNumber, pageSize, sortBy, sortDirection]);
-
-  const fetchInscriptions = async () => {
-    try {
-      const response = await getInscriptions(pageNumber, pageSize);
-      setInscriptions(response.data);
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }
-  };
+  });
 
   return (
     <div>
@@ -26,7 +22,6 @@ const InscriptionList = () => {
         Inscription List
       </h1>
       <div className="flex flex-col items-center">
-        <SortSelect setSortBy={setSortBy} setSortDirection={setSortDirection} />
         <div className="overflow-x-auto m-4 w-auto rounded-xl">
           <table className="table-auto w-full ">
             <thead className="border-b">
@@ -38,22 +33,17 @@ const InscriptionList = () => {
             </thead>
             <tbody>
               {inscriptions.map((inscription) => (
-                <>
+                <React.Fragment key={inscription.inscripcion_id}>
                   <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
-                    <td className="p-4">{inscription.id}</td>
-                    <td className="p-4">{inscription.id_Student}</td>
-                    <td className="p-4">{inscription.id_Subject}</td>
+                    <td className="p-4">{inscription.inscripcion_id}</td>
+                    <td className="p-4">{inscription.student_id}</td>
+                    <td className="p-4">{inscription.subject_id}</td>
                   </tr>
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>
         </div>
-        <Pagination
-          setPageNumber={setPageNumber}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-        />
       </div>
     </div>
   );

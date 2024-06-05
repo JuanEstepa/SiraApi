@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { getSubjects, getSubjectStudents } from "../services/api";
 import Pagination from "./Pagination";
 import SortSelect from "./SortSelect";
@@ -7,7 +8,7 @@ const SubjectList = () => {
   const [subjects, setSubjects] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortBy, setSortBy] = useState("nombre");
+  const [sortBy, setSortBy] = useState("subject_id");
   const [sortDirection, setSortDirection] = useState("asc");
   const [students, setStudents] = useState([]);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
@@ -65,7 +66,7 @@ const SubjectList = () => {
             </thead>
             <tbody>
               {subjects.map((subject) => (
-                <>
+                <React.Fragment key={subject.subject_id}>
                   <tr
                     key={subject.subject_id}
                     className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white"
@@ -98,7 +99,7 @@ const SubjectList = () => {
                             {students.map((student) => (
                               <tr
                                 className="pt-5 text-center border-b hover:bg-gray-100 dark:hover:bg-gray-900/60 dark:text-white"
-                                key={student.subject_id}
+                                key={student.student_id}
                               >
                                 <td className="p-2">{student.student_id}</td>
                                 <td className="p-2">{student.nombre}</td>
@@ -112,7 +113,7 @@ const SubjectList = () => {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>

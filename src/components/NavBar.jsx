@@ -18,7 +18,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function NavBar() {
+const NavBar = () => {
   const [dark, setDark] = useState(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return true;
@@ -99,9 +99,9 @@ export default function NavBar() {
 
                   <div className="w-[20px] h-[20px] rounded-full bg-white dark:translate-x-[24px] transition-all flex items-center justify-center">
                     {dark ? (
-                      <MoonIcon class="h-4 w-4 text-gray-800" />
+                      <MoonIcon className="h-4 w-4 text-gray-800" />
                     ) : (
-                      <SunIcon class="h-6 w-6 text-gray-800" />
+                      <SunIcon className="h-6 w-6 text-gray-800" />
                     )}
                   </div>
                 </label>
@@ -132,4 +132,6 @@ export default function NavBar() {
       )}
     </Disclosure>
   );
-}
+};
+
+export default NavBar;
