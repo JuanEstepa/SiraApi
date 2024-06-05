@@ -4,7 +4,7 @@ import InscriptionList from "../components/InscriptionList";
 const Inscription = () => {
   return (
     <div className="w-full h-screen">
-      <NavBar />
+      <NavBar page="Inscripciones" />
       <InscriptionList />
     </div>
   );

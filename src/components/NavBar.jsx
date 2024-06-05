@@ -9,16 +9,16 @@ import {
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Estudiantes", href: "/", current: true },
-  { name: "Materias", href: "/Subjects", current: false },
-  { name: "Inscripciones", href: "/Inscriptions", current: false },
+  { name: "Estudiantes", href: "/" },
+  { name: "Materias", href: "/Subjects" },
+  { name: "Inscripciones", href: "/Inscriptions" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const NavBar = () => {
+const NavBar = ({ page }) => {
   const [dark, setDark] = useState(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return true;
@@ -61,7 +61,7 @@ const NavBar = () => {
                   <img
                     className="h-8 w-auto"
                     src="https://cdn-icons-png.flaticon.com/512/214/214337.png"
-                    alt="Your Company"
+                    alt="SirApi"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
@@ -71,7 +71,7 @@ const NavBar = () => {
                         key={item.name}
                         to={item.href}
                         className={classNames(
-                          item.current
+                          item.name == page
                             ? "dark:bg-gray-900 bg-gray-300 dark:text-white text-black "
                             : "dark:text-gray-300 text-gray-800 dark:hover:bg-gray-700 hover:bg-gray-200 dark:hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
