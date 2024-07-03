@@ -8,7 +8,7 @@ const StudentList = () => {
   const [students, setStudents] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortBy, setSortBy] = useState("student_id");
+  const [sortBy, setSortBy] = useState("estudiante_code");
   const [sortDirection, setSortDirection] = useState("asc");
   const [subjects, setSubjects] = useState([]);
   const [selectedStudentId, setSelectedStudentId] = useState(null);

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { getSubjects, getSubjectStudents } from "../services/api";
+import { getGroups, getSubjectStudents } from "../services/api";
 import Pagination from "./Pagination";
 import SortSelect from "./SortSelect";
 
-const SubjectList = () => {
+const GroupList = () => {
   const [subjects, setSubjects] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [sortBy, setSortBy] = useState("asignatura_id");
+  const [sortBy, setSortBy] = useState("subject_id");
   const [sortDirection, setSortDirection] = useState("asc");
   const [students, setStudents] = useState([]);
   const [selectedSubjectId, setSelectedSubjectId] = useState(null);
@@ -16,7 +16,7 @@ const SubjectList = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await getSubjects(
+        const response = await getGroups(
           pageNumber,
           pageSize,
           sortBy,
@@ -133,4 +133,4 @@ const SubjectList = () => {
   );
 };
 
-export default SubjectList;
+export default GroupList;

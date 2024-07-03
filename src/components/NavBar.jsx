@@ -9,9 +9,10 @@ import {
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Estudiantes", href: "/" },
+  { name: "Estudiantes", href: "/Students" },
   { name: "Materias", href: "/Subjects" },
   { name: "Inscripciones", href: "/Inscriptions" },
+  { name: "Grupos", href: "/Groups" },
 ];
 
 function classNames(...classes) {

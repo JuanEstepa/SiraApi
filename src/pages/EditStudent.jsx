@@ -6,14 +6,13 @@ const EditStudent = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [code, setCode] = useState("");
-  const [gender, setGender] = useState("");
   const [document, setDocument] = useState("");
   const [program, setProgram] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if ([name, lastName, code, gender, document, program].includes("")) {
+    if ([name, lastName, code, document, program].includes("")) {
       toast.error("Todos los campos son obligatorios", {
         theme: "dark",
       });
@@ -21,7 +20,7 @@ const EditStudent = () => {
     }
 
     // Aquí puedes manejar el envío del formulario, como enviar los datos al servidor
-    console.log({ name, lastName, code, gender, document, program });
+    console.log({ name, lastName, code, document, program });
   };
 
   return (
