@@ -59,8 +59,7 @@ const SubjectList = () => {
               <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                 <th className="text-center p-4 font-medium">Id</th>
                 <th className="text-center p-4 font-medium">Nombre</th>
-                <th className="text-center p-4 font-medium">Aula</th>
-                <th className="text-center p-4 font-medium">Creditos</th>
+                <th className="text-center p-4 font-medium">Programa</th>
                 <th className="text-center p-4 font-medium">Estudiantes</th>
               </tr>
             </thead>
@@ -69,11 +68,11 @@ const SubjectList = () => {
                 <React.Fragment key={subject.asignatura_id}>
                   <tr
                     key={subject.subject_id}
-                    className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white"
+                    className="border-b text-center hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white"
                   >
                     <td className="p-4">{subject.asignatura_id}</td>
                     <td className="p-4">{subject.asignatura_nombre}</td>
-                    <td className="p-4">{subject.program_fk}</td>
+                    <td className="p-4">{subject.programa_fk}</td>
                     <td className="p-4">
                       <button
                         onClick={() => handleViewStudents(subject.subject_id)}

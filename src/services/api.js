@@ -45,5 +45,5 @@ export const getSubjectStudents = (studentId) => {
 };
 
 export const getInscriptions = () => {
-  return axios.get(`${API_URL}/inscripciones/`, {});
+  return axios.get(`${API_URL}/programas/`, {});
 };

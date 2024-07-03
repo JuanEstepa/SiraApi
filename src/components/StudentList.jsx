@@ -63,21 +63,39 @@ const StudentList = () => {
               <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                 <th className="text-center p-4 font-semibold">Id</th>
                 <th className="text-center p-4 font-semibold">Nombre</th>
+                <th className="text-center p-4 font-semibold">Apellido</th>
+                <th className="text-center p-4 font-semibold">Tipo de Doc.</th>
                 <th className="text-center p-4 font-semibold">Document</th>
+                <th className="text-center p-4 font-semibold">Estado</th>
+                <th className="text-center p-4 font-semibold">Programa</th>
                 <th className="text-center p-4 font-semibold">Materias</th>
               </tr>
             </thead>
             <tbody>
               {students.map((student) => (
-                <React.Fragment key={student.student_id}>
+                <React.Fragment key={student.estudiante_id}>
                   <tr
-                    key={student.student_id}
+                    key={student.estudiante_id}
                     className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white"
                   >
-                    <td className="text-center p-4">{student.student_id}</td>
-                    <td className="text-center p-4">{student.nombre}</td>
+                    <td className="text-center p-4">{student.estudiante_id}</td>
                     <td className="text-center p-4">
-                      {student.numero_identificacion}
+                      {student.estudiante_name}
+                    </td>
+                    <td className="text-center p-4">
+                      {student.estudiante_last_name}
+                    </td>
+                    <td className="text-center p-4">
+                      {student.estudiante_type_doc}
+                    </td>
+                    <td className="text-center p-4">
+                      {student.estudiante_document}
+                    </td>
+                    <td className="text-center p-4">
+                      {student.estudiante_status}
+                    </td>
+                    <td className="text-center p-4">
+                      {student.estudiante_programa_fk}
                     </td>
                     <td className="text-center p-4">
                       <button

@@ -49,7 +49,7 @@ const GroupList = () => {
   return (
     <div>
       <h1 className="p-6 font-bold dark:text-white text-3xl text-center uppercase">
-        Subject List
+        Groups List
       </h1>
       <div className="flex flex-col items-center">
         <SortSelect setSortBy={setSortBy} setSortDirection={setSortDirection} />

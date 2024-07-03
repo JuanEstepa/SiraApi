@@ -27,17 +27,17 @@ const InscriptionList = () => {
             <thead className="border-b">
               <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                 <th className="text-center p-4 font-medium">Id</th>
-                <th className="text-center p-4 font-medium">Estudiante</th>
-                <th className="text-center p-4 font-medium">Materia</th>
+                <th className="text-center p-4 font-medium">Programa</th>
+                <th className="text-center p-4 font-medium">Facultad</th>
               </tr>
             </thead>
             <tbody>
               {inscriptions.map((inscription) => (
-                <React.Fragment key={inscription.inscripcion_id}>
-                  <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
-                    <td className="p-4">{inscription.inscripcion_id}</td>
-                    <td className="p-4">{inscription.student_id}</td>
-                    <td className="p-4">{inscription.subject_id}</td>
+                <React.Fragment key={inscription.programa_id}>
+                  <tr className="text-center order-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
+                    <td className="p-4">{inscription.programa_id}</td>
+                    <td className="p-4">{inscription.programa_name}</td>
+                    <td className="p-4">{inscription.facultad_fk}</td>
                   </tr>
                 </React.Fragment>
               ))}
