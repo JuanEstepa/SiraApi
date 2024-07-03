@@ -1,19 +1,48 @@
 import SideBar from "../components/SideBar";
+import { useEffect, useState } from "react";
+import { getStudentInfo, getProgramInfo } from "../services/api";
 
 const StudentInfo = () => {
+  const [student, setStudent] = useState({});
+  const [program, setProgram] = useState({});
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await getStudentInfo(13);
+        setStudent(response.data); // Ensure that response.data is the correct path to your students array
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+      }
+    };
+    fetchStudents();
+  }, []);
+
+  useEffect(() => {
+    const fetchProgram = async () => {
+      try {
+        const response = await getProgramInfo(student.estudiante_programa_fk);
+        setProgram(response.data); // Ensure that response.data is the correct path to your students array
+      } catch (error) {
+        console.error("Error fetching programa:", error);
+      }
+    };
+    fetchProgram();
+  });
+
   const personalData = {
-    Nombres: "JUAN ANDRES",
-    Apellidos: "GONZALEZ ESTEPA",
-    Código: "202016541",
-    Documento: "1234567894",
-    "Estado Académico": "MATRICULADO",
-    "Tipo Documento": "Cédula de Ciudadanía",
+    Nombres: student.estudiante_name,
+    Apellidos: student.estudiante_last_name,
+    Código: student.estudiante_code,
+    Documento: student.estudiante_document,
+    "Estado Académico": student.estudiante_status,
+    "Tipo Documento": student.estudiante_type_doc,
   };
 
   const programData = {
-    "Nombre Programa": "INGENIERIA DE SISTEMAS Y COMPUTACION",
-    Código: "60",
-    Seccional: "SOGAMOSO",
+    "Nombre Programa": program.programa_name,
+    Código: program.programa_id,
+    Seccional: program.facultad_fk,
   };
 
   return (
@@ -28,7 +57,7 @@ const StudentInfo = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex justify-center items-center">
                 <img
-                  src="https://storage.googleapis.com/fotos_sira/photos/14.jpg"
+                  src={student.estudiante_photo}
                   className="w-full max-w-52 h-60 aspect-[4/3] object-cover object-center rounded bg-gray-50 dark:bg-gray-800"
                 />
               </div>

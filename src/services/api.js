@@ -26,7 +26,7 @@ export const getGroups = (pageNumber, pageSize, sortBy, sortDirection) => {
 };
 
 export const getStudentSubjects = (studentId) => {
-  return axios.get(`${API_URL}/estudiantes/${studentId}/asignaturas/`);
+  return axios.get(`${API_URL}/estudiantes/${studentId}/materias_grupo/`);
 };
 
 export const getSubjects = (pageNumber, pageSize, sortBy, sortDirection) => {
@@ -46,4 +46,12 @@ export const getSubjectStudents = (studentId) => {
 
 export const getInscriptions = () => {
   return axios.get(`${API_URL}/programas/`, {});
+};
+
+export const getStudentInfo = (id) => {
+  return axios.get(`${API_URL}/estudiantes/${id}`);
+};
+
+export const getProgramInfo = (id) => {
+  return axios.get(`${API_URL}/programa/${id}`);
 };

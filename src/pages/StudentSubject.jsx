@@ -1,6 +1,22 @@
 import SideBar from "../components/SideBar";
+import { useState, useEffect } from "react";
+import { getStudentSubjects } from "../services/api";
 
 const StudentSubject = () => {
+  const [subjects, setSubjects] = useState([]);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await getStudentSubjects(4);
+        setSubjects(response.data); // Ensure that response.data is the correct path to your students array
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+      }
+    };
+    fetchStudents();
+  }, []);
+
   return (
     <div>
       <SideBar />
@@ -16,22 +32,33 @@ const StudentSubject = () => {
                   <thead className="border-b">
                     <tr className="bg-gray-100 dark:bg-gray-800 dark:text-white">
                       <th className="text-center p-4 font-medium">Id</th>
-                      <th className="text-center p-4 font-medium">Nombre</th>
+                      <th className="text-center p-4 font-medium">Materia</th>
+                      <th className="text-center p-4 font-medium">Grupo</th>
                       <th className="text-center p-4 font-medium">Aula</th>
                       <th className="text-center p-4 font-medium">Creditos</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                      /*subjects.map((subject) => (*/
-                      <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white">
-                        <td className="p-4 text-center">123</td>
-                        <td className="p-4 text-center">Calculo III</td>
-                        <td className="p-4 text-center">AAA303</td>
-                        <td className="p-4 text-center">4</td>
+                    {subjects.map((subject) => (
+                      <tr
+                        className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/80 dark:text-white"
+                        key={subject.grupo_id}
+                      >
+                        <td className="p-4 text-center">{subject.grupo_id}</td>
+                        <td className="p-4 text-center">
+                          {subject.asignatura_fk}
+                        </td>
+                        <td className="p-4 text-center">
+                          {subject.grupo_name}
+                        </td>
+                        <td className="p-4 text-center">
+                          {subject.grupo_classroom}
+                        </td>
+                        <td className="p-4 text-center">
+                          {subject.grupo_credits}
+                        </td>
                       </tr>
-                      /*))*/
-                    }
+                    ))}
                   </tbody>
                 </table>
               </div>
