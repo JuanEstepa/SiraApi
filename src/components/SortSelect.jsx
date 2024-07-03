@@ -17,15 +17,17 @@ const SortSelect = ({ setSortBy, setSortDirection, list }) => {
         >
           {list === "Students" ? (
             <>
-              <option value="student_id">Student Id</option>
-              <option value="nombre">Name</option>
-              <option value="numero_identificacion">Document Number</option>
+              <option value="estudiante_id">Student Id</option>
+              <option value="estudiante_name">Nombre</option>
+              <option value="estudiante_last_name">Apellido</option>
+              <option value="estudiante_programa_fk">Programa</option>
             </>
           ) : (
             <>
-              <option value="subject_id">Subject id</option>
-              <option value="nombre">Name</option>
-              <option value="aula">Aula</option>
+              <option value="grupo_id">Subject id</option>
+              <option value="grupo_name">Name</option>
+              <option value="grupo_classroom">Aula</option>
+              <option value="asignatura_fk">Asignatura</option>
             </>
           )}
         </select>
