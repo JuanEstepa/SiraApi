@@ -46,7 +46,7 @@ const RegistratiomForm = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-700 p-8 rounded-lg w-full md:w-96">
+    <div className="bg-white  p-8 rounded-lg w-full md:w-96">
       <div className="mb-10">
         <h1 className="text-3xl uppercase font-bold text-center">Registrate</h1>
       </div>

@@ -1,15 +1,19 @@
 import SideBar from "../components/SideBar";
+
 import { useEffect, useState } from "react";
 import { getStudentInfo, getProgramInfo } from "../services/api";
+import { useUserContext } from "../UserProvider";
 
 const StudentInfo = () => {
   const [student, setStudent] = useState({});
   const [program, setProgram] = useState({});
 
+  const usuario = useUserContext();
+
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await getStudentInfo(13);
+        const response = await getStudentInfo(usuario.student_id); //PONER IDDDD
         setStudent(response.data); // Ensure that response.data is the correct path to your students array
       } catch (error) {
         console.error("Error fetching subjects:", error);

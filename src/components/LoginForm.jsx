@@ -1,23 +1,28 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { postAuth } from "../services/api";
+import { useEditContext } from "../UserProvider";
 import {
   EnvelopeIcon,
   EyeIcon,
   KeyIcon,
   EyeSlashIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
+  const usuario = useEditContext();
+  const navigate = useNavigate();
+
   const handleShowPass = () => {
     setShowPass(!showPass);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if ([user, password].includes("")) {
@@ -26,17 +31,36 @@ const LoginForm = () => {
       });
       return;
     }
-    if (password.length < 8) {
-      toast.error("La contraseña debe tener al menos 8 caracteres", {
+
+    try {
+      const response = await postAuth(user, password);
+      console.log("Response.data:", response.data); // Verifica los datos aquí
+
+      // Extraer los valores deseados
+      const { student_id, rol } = response.data;
+      console.log("Datos a establecer en contexto:", { student_id, rol });
+
+      usuario({ student_id });
+
+      if (rol == 1) {
+        navigate("/Students");
+      } else {
+        navigate("/Main");
+      }
+    } catch (error) {
+      console.error("Error posting auth:", error);
+      toast.error("Error al iniciar sesión. Verifica tus credenciales.", {
         theme: "dark",
       });
-      return;
     }
-    console.log(user + " " + password);
+  };
+
+  const handleFaceButtonClick = () => {
+    navigate("/Webcam");
   };
 
   return (
-    <div className="bg-white dark:bg-gray-700 p-8 rounded-lg w-full md:w-96">
+    <div className="bg-white  p-8 rounded-lg w-full md:w-96">
       <div className="mb-10">
         <h1 className="text-3xl uppercase font-bold text-center">
           Iniciar sesión
@@ -77,13 +101,25 @@ const LoginForm = () => {
             />
           )}
         </div>
-        <div>
-          <button
-            type="submit"
-            className="uppercase mt-6 bg-rose-500 text-white w-full py-2 px-6 rounded-lg hover:scale-105 hover:bg-rose-700 transition-all"
-          >
-            Ingresar
-          </button>
+        <div className="flex gap-2 justify-center mt-2">
+          <div>
+            <button
+              to="/Main"
+              type="submit"
+              className="uppercase bg-rose-500 text-white w-full py-2 px-6 rounded-lg hover:scale-105 hover:bg-rose-700 transition-all"
+            >
+              Ingresar
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={handleFaceButtonClick}
+              className="uppercase bg-rose-500 text-white w-full py-2 px-6 rounded-lg hover:scale-105 hover:bg-rose-700 transition-all"
+            >
+              Face
+            </button>
+          </div>
         </div>
       </form>
       <div className="text-center pt-6">

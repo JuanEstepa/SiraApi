@@ -55,3 +55,68 @@ export const getStudentInfo = (id) => {
 export const getProgramInfo = (id) => {
   return axios.get(`${API_URL}/programa/${id}`);
 };
+
+export const postAuth = (user, password) => {
+  return axios.post(`${API_URL}/login`, {
+    autenticacion_user: user,
+    autenticacion_password: password,
+  });
+};
+
+export const postLoginByFace = async (imageBase64) => {
+  const filename = "image.jpg"; // Define el nombre del archivo
+
+  // Convierte base64 a un archivo Blob
+  const base64ToBlob = (base64, mimeType) => {
+    const byteCharacters = atob(base64.split(",")[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mimeType });
+  };
+
+  const blob = base64ToBlob(imageBase64, "image/jpeg");
+
+  // Crea un objeto FormData
+  const formData = new FormData();
+  formData.append("photo", blob, filename);
+
+  // Envía la solicitud POST
+  try {
+    const response = await axios.post(`${API_URL}/login-by-face/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error posting image:", error);
+    throw error;
+  }
+};
+
+export const editStudent = (studentId, studentData) => {
+  return axios.patch(
+    `${API_URL}/actualizar_estudiante/${studentId}`,
+    studentData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+};
+
+export const getMateriasByStudent = (id) => {
+  return axios.get(`${API_URL}/estudiantes/${id}/asignaturas_con_grupos`);
+};
+
+export const postInscriptions = (data) => {
+  return axios.post(`${API_URL}/crear_inscripcion/`, data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

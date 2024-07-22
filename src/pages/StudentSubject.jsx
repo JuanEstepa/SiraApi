@@ -1,14 +1,23 @@
 import SideBar from "../components/SideBar";
+import InscribirMaterias from "../components/InscribirMaterias";
 import { useState, useEffect } from "react";
 import { getStudentSubjects } from "../services/api";
+import { useUserContext } from "../UserProvider";
 
 const StudentSubject = () => {
   const [subjects, setSubjects] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const usuario = useUserContext();
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await getStudentSubjects(4);
+        const response = await getStudentSubjects(usuario.student_id);
         setSubjects(response.data); // Ensure that response.data is the correct path to your students array
       } catch (error) {
         console.error("Error fetching subjects:", error);
@@ -62,9 +71,16 @@ const StudentSubject = () => {
                   </tbody>
                 </table>
               </div>
+              <button
+                onClick={toggleSidebar}
+                className="uppercase mt-6 bg-rose-500 text-white py-2 px-6 rounded-lg hover:scale-105 hover:bg-rose-700 transition-all"
+              >
+                Inscrir materias
+              </button>
             </div>
           </div>
         </div>
+        {isOpen ? <InscribirMaterias /> : null}
       </div>
     </div>
   );
