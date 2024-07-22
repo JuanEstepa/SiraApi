@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const API_URL = "https://d847bd3f87e5b0d0305beee9161a25e3.loophole.site";
-const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
+const API_URL = "https://94e89129b9b155510db42f19bcc4c429.loophole.site";
+//const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export const getStudents = (pageNumber, pageSize, sortBy, sortDirection) => {
   return axios.get(`${API_URL}/estudiantes/`, {
