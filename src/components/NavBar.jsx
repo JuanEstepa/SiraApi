@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
 import { Disclosure } from "@headlessui/react";
 import {
   Bars3Icon,
   XMarkIcon,
-  MoonIcon,
-  SunIcon,
+  ArrowRightStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
@@ -13,7 +11,7 @@ const navigation = [
   { name: "Materias", href: "/Subjects" },
   { name: "Inscripciones", href: "/Inscriptions" },
   { name: "Grupos", href: "/Groups" },
-  { name: "Cerrar Sesion", href: "/" },
+  { name: "Crear Estudiante", href: "/Registration" },
 ];
 
 function classNames(...classes) {
@@ -21,25 +19,6 @@ function classNames(...classes) {
 }
 
 const NavBar = ({ page }) => {
-  const [dark, setDark] = useState(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return true;
-    }
-    return false;
-  });
-
-  const handleClick = () => {
-    setDark(!dark);
-  };
-
-  useEffect(() => {
-    if (dark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [dark]);
-
   return (
     <Disclosure as="nav" className="dark:bg-gray-800  bg-gray-100">
       {({ open }) => (
@@ -86,28 +65,12 @@ const NavBar = ({ page }) => {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* DARKMODE */}
-                <label
-                  htmlFor="darkmode"
-                  className=" w-12 mt-[3px] bg-gray-300 h-6 rounded-full cursor-pointer p-[2px] relative overflow-hidden"
-                >
-                  <input
-                    onClick={handleClick}
-                    id="darkmode"
-                    type="checkbox"
-                    className=" sr-only"
-                  ></input>
-
-                  <div className="w-[20px] h-[20px] rounded-full bg-white dark:translate-x-[24px] transition-all flex items-center justify-center">
-                    {dark ? (
-                      <MoonIcon className="h-4 w-4 text-gray-800" />
-                    ) : (
-                      <SunIcon className="h-6 w-6 text-gray-800" />
-                    )}
-                  </div>
-                </label>
-              </div>
+              <Link
+                to="/"
+                className="uppercase bg-rose-500 text-white py-2 px-6 rounded-lg hover:scale-105 hover:bg-rose-700 transition-all"
+              >
+                <ArrowRightStartOnRectangleIcon className="h-6 w-6 text-white" />
+              </Link>
             </div>
           </div>
 

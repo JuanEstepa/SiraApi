@@ -120,3 +120,20 @@ export const postInscriptions = (data) => {
     },
   });
 };
+
+export const postCreationAuth = async (data) => {
+  const response = await axios.post(`${API_URL}/crear_autenticacion/`, data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
+
+export const postCreationEstudent = async (data) => {
+  return await axios.post(`${API_URL}/crear_estudiante/`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};

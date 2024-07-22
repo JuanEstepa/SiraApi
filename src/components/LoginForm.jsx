@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { postAuth } from "../services/api";
 import { useEditContext } from "../UserProvider";
 import {
@@ -122,7 +122,14 @@ const LoginForm = () => {
           </div>
         </div>
       </form>
-      <div className="text-center pt-6">
+    </div>
+  );
+};
+
+export default LoginForm;
+
+{
+  /* <div className="text-center pt-6">
         <p className="font-medium">
           ¿No tienes cuenta?{" "}
           <Link
@@ -132,9 +139,5 @@ const LoginForm = () => {
             Registrate
           </Link>
         </p>
-      </div>
-    </div>
-  );
-};
-
-export default LoginForm;
+      </div> */
+}

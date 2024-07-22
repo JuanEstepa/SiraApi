@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useUserContext } from "../UserProvider";
+import { useNavigate } from "react-router-dom";
 import { getMateriasByStudent, postInscriptions } from "../services/api";
 import { toast } from "react-toastify";
 import {
@@ -11,6 +12,8 @@ import {
 const InscribirMaterias = () => {
   const [subjects, setSubjects] = useState([]);
   const [isOpen, setIsOpen] = useState(null);
+
+  const navigate = useNavigate();
 
   const toggleSubTable = (id) => {
     setIsOpen(isOpen === id ? null : id);
@@ -26,10 +29,12 @@ const InscribirMaterias = () => {
 
     try {
       const response = await postInscriptions(data);
-      console.log("Response:", response);
+      console.log("Response:", response.data);
+      toast.success("Materia Inscrita con exito");
+      navigate("/Main");
     } catch (error) {
       console.error("Error posting auth:", error);
-      toast.error("Error al iniciar sesión.", {
+      toast.error("Error al inscribir materia.", {
         theme: "dark",
       });
     }
